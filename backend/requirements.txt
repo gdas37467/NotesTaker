@@ -1,0 +1,7 @@
+Flask==2.3.2
+PyJWT==2.8.0
+pymongo==4.4.0
+flask-cors==3.0.10
+passlib[bcrypt]==1.7.4
+python-dotenv==1.0.0
+uuid==1.30
