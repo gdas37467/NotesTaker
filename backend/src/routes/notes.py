@@ -31,7 +31,7 @@ def list_notes():
     for n in data:
         n['_id'] = str(n['_id'])
         notes.append(n)
-    return jsonify(notes)
+    return jsonify(notes),200
 
 
 @bp.route('/', methods=['POST'])
@@ -50,6 +50,7 @@ def create_note():
         'created_on': now,
         'last_update': now
     }
+    print(note)
     result = notes_col.insert_one(note)
     note['_id'] = str(result.inserted_id)
     return jsonify(note), 201
@@ -62,6 +63,7 @@ def update_note(note_id):
         return jsonify({'error': 'unauth'}), 401
     data = request.json
     now = datetime.now()
+    print(note_id)
     update = {
         '$set': {
             'note_title': data.get('title', ''),

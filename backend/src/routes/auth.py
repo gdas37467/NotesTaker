@@ -19,8 +19,9 @@ def signup():
         return jsonify({'error': 'email/password required'}), 400
     if users_col.find_one({'user_email': email}):
         print('exists')
-        return jsonify({'error': 'user exists'}), 409
+        return jsonify({'error': 'user exists'}), 400
     user_id = str(uuid.uuid4())
+    print(password)
     hashed = bcrypt.hash(password)
     user = {
         'user_id': user_id,
