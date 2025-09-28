@@ -17,9 +17,10 @@ export default function Home() {
     // console.log(note)
   const router = useRouter();
 
-  const {clearAuth,user,token} = useAuthStore();
+  const {clearAuth,user,token,rehydrate} = useAuthStore();
  
-  console.log(user)
+  // console.log(user)
+
   async function fetchNotes() {
     setLoading(true);
     try {
@@ -64,16 +65,21 @@ export default function Home() {
     }
   }
   
-
+  useEffect(() => {
+    // hydrate Zustand state from localStorage
+    rehydrate();
+  }, [rehydrate]);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    // const token = localStorage.getItem('token');
     console.log(token)
     if (!token) {
+      console.log('Hi')
       router.replace('/signin');
+      return;
     }
     fetchNotes();
-  }, [router]);
+  }, [router,token]);
 
   if (loading) return <p>Loading...</p>;
 
@@ -88,9 +94,9 @@ export default function Home() {
             <li>Contact</li>
             <li onClick={() => {
             
-            localStorage.removeItem('token');
             clearAuth();
             router.replace('/signin');
+            return;
           }} className="hover:text-orange-200 ">Logout</li>
           </ul>
        </div>
@@ -107,7 +113,7 @@ export default function Home() {
       </div>
     <div className="p-8 max-w-7xl mx-auto bg-orange-50">
       
-       <h1 className="text-orange-950 font-bold text-4xl  mb-8  ">Good Morning , {user.user_name}!</h1>
+       <h1 className="text-orange-950 font-bold text-4xl  mb-8  ">Good Morning , {user? user.user_name :''}!</h1>
       
       {!showEditor ? (
         <div 

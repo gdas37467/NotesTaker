@@ -19,9 +19,9 @@ export default function NoteCard({ note, onDelete,handleEdit}) {
       <h2 className="font-bold text-xl mb-3 text-gray-800">
         {note.note_title}
       </h2>
-      <p className="text-gray-600 mb-4">
+      <div className="text-gray-600 mb-4">
         <span>{parse(note.note_content)}</span>
-      </p>
+      </div>
       <button
             onClick={handleEdit}
             className="absolute top-4 right-16 opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-full hover:bg-blue-50"
